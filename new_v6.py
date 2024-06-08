@@ -8,13 +8,12 @@ class BalanceSheetGenerator:
         self.root = root
         self.root.title("Balance Sheet Generator")
 
-        self.categories = ["Current Assets", "Non-Current Assets", "Current Liabilities", "Non-Current Liabilities",
-                           "Stockholders' Equity"]
+        self.categories = ["Current Assets", "Fixed Assets", "Current Liabilities", "Long-term Liabilities", "Stockholders' Equity"]
         self.current_assets = 0
-        self.non_current_assets = 0
+        self.fixed_assets = 0
         self.total_assets = 0
         self.current_liabilities = 0
-        self.non_current_liabilities = 0
+        self.long_term_liabilities = 0
         self.total_liabilities = 0
         self.stockholders_equity = 0
         self.total_equity_liabilities = 0
@@ -30,7 +29,7 @@ class BalanceSheetGenerator:
         self.company_name_entry = ttk.Entry(self.frame)
         self.company_name_entry.grid(row=0, column=1, padx=5, pady=5)
 
-        self.item_label = ttk.Label(self.frame, text="Item:")
+        self.item_label = ttk.Label(self.frame, text="Account Detail:")
         self.item_label.grid(row=1, column=0, padx=5, pady=5)
 
         self.item_entry = ttk.Entry(self.frame)
@@ -61,8 +60,8 @@ class BalanceSheetGenerator:
         self.total_current_assets_label = ttk.Label(self.frame, text="Total Current Assets: {:.2f}".format(self.current_assets))
         self.total_current_assets_label.grid(row=4, column=0, columnspan=6, padx=5, pady=5)
 
-        self.total_non_current_assets_label = ttk.Label(self.frame, text="Total Non-Current Assets: {:.2f}".format(self.non_current_assets))
-        self.total_non_current_assets_label.grid(row=5, column=0, columnspan=6, padx=5, pady=5)
+        self.total_fixed_assets_label = ttk.Label(self.frame, text="Total Fixed Assets: {:.2f}".format(self.fixed_assets))
+        self.total_fixed_assets_label.grid(row=5, column=0, columnspan=6, padx=5, pady=5)
 
         self.total_assets_label = ttk.Label(self.frame, text="Total Assets: {:.2f}".format(self.total_assets))
         self.total_assets_label.grid(row=6, column=0, columnspan=6, padx=5, pady=5)
@@ -70,8 +69,8 @@ class BalanceSheetGenerator:
         self.total_current_liabilities_label = ttk.Label(self.frame, text="Total Current Liabilities: {:.2f}".format(self.current_liabilities))
         self.total_current_liabilities_label.grid(row=7, column=0, columnspan=6, padx=5, pady=5)
 
-        self.total_non_current_liabilities_label = ttk.Label(self.frame, text="Total Non-Current Liabilities: {:.2f}".format(self.non_current_liabilities))
-        self.total_non_current_liabilities_label.grid(row=8, column=0, columnspan=6, padx=5, pady=5)
+        self.total_long_term_liabilities_label = ttk.Label(self.frame, text="Total Long-term Liabilities: {:.2f}".format(self.long_term_liabilities))
+        self.total_long_term_liabilities_label.grid(row=8, column=0, columnspan=6, padx=5, pady=5)
 
         self.total_liabilities_label = ttk.Label(self.frame, text="Total Liabilities: {:.2f}".format(self.total_liabilities))
         self.total_liabilities_label.grid(row=9, column=0, columnspan=6, padx=5, pady=5)
@@ -104,15 +103,15 @@ class BalanceSheetGenerator:
         if current_category == "Current Assets":
             self.current_assets += amount
             self.update_current_assets_label()
-        elif current_category == "Non-Current Assets":
-            self.non_current_assets += amount
-            self.update_non_current_assets_label()
+        elif current_category == "Fixed Assets":
+            self.fixed_assets += amount
+            self.update_fixed_assets_label()
         elif current_category == "Current Liabilities":
             self.current_liabilities += amount
             self.update_current_liabilities_label()
-        elif current_category == "Non-Current Liabilities":
-            self.non_current_liabilities += amount
-            self.update_non_current_liabilities_label()
+        elif current_category == "Long-term Liabilities":
+            self.long_term_liabilities += amount
+            self.update_long_term_liabilities_label()
         elif current_category == "Stockholders' Equity":
             self.stockholders_equity += amount
             self.update_stockholders_equity_label()
@@ -142,15 +141,15 @@ class BalanceSheetGenerator:
         if current_category == "Current Assets":
             self.current_assets += amount
             self.update_current_assets_label()
-        elif current_category == "Non-Current Assets":
-            self.non_current_assets += amount
-            self.update_non_current_assets_label()
+        elif current_category == "Fixed Assets":
+            self.fixed_assets += amount
+            self.update_fixed_assets_label()
         elif current_category == "Current Liabilities":
             self.current_liabilities += amount
             self.update_current_liabilities_label()
-        elif current_category == "Non-Current Liabilities":
-            self.non_current_liabilities += amount
-            self.update_non_current_liabilities_label()
+        elif current_category == "Long-term Liabilities":
+            self.long_term_liabilities += amount
+            self.update_long_term_liabilities_label()
         elif current_category == "Stockholders' Equity":
             self.stockholders_equity += amount
             self.update_stockholders_equity_label()
@@ -162,21 +161,21 @@ class BalanceSheetGenerator:
     def update_current_assets_label(self):
         self.total_current_assets_label.config(text="Total Current Assets: {:.2f}".format(self.current_assets))
 
-    def update_non_current_assets_label(self):
-        self.total_non_current_assets_label.config(text="Total Non-Current Assets: {:.2f}".format(self.non_current_assets))
+    def update_fixed_assets_label(self):
+        self.total_fixed_assets_label.config(text="Total Fixed Assets: {:.2f}".format(self.fixed_assets))
 
     def update_total_assets(self):
-        self.total_assets = self.current_assets + self.non_current_assets
+        self.total_assets = self.current_assets + self.fixed_assets
         self.total_assets_label.config(text="Total Assets: {:.2f}".format(self.total_assets))
 
     def update_current_liabilities_label(self):
         self.total_current_liabilities_label.config(text="Total Current Liabilities: {:.2f}".format(self.current_liabilities))
 
-    def update_non_current_liabilities_label(self):
-        self.total_non_current_liabilities_label.config(text="Total Non-Current Liabilities: {:.2f}".format(self.non_current_liabilities))
+    def update_long_term_liabilities_label(self):
+        self.total_long_term_liabilities_label.config(text="Total Long-term Liabilities: {:.2f}".format(self.long_term_liabilities))
 
     def update_total_liabilities(self):
-        self.total_liabilities = self.current_liabilities + self.non_current_liabilities
+        self.total_liabilities = self.current_liabilities + self.long_term_liabilities
         self.total_liabilities_label.config(text="Total Liabilities: {:.2f}".format(self.total_liabilities))
 
     def update_stockholders_equity_label(self):
@@ -193,14 +192,13 @@ class BalanceSheetGenerator:
             return
 
         year = datetime.now().year
-
-        timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-        filename = f"balance_sheet_{timestamp}.csv"
+        date = datetime.now().strftime("%Y-%m-%d")
+        filename = f"balance_sheet_{date}.csv"
 
         data = [
             [company_name, year],
             ["Balance Sheet", ""],
-
+            ["", ""],
             ["Assets", ""],
             ["Current Assets", ""]
         ]
@@ -211,13 +209,13 @@ class BalanceSheetGenerator:
 
         data.append(["Total Current Assets:", self.current_assets])
         data.append(["", ""])
-        data.append(["Non-Current Assets", ""])
+        data.append(["Fixed Assets", ""])
 
-        for item in self.tree.get_children(self.category_ids["Non-Current Assets"]):
+        for item in self.tree.get_children(self.category_ids["Fixed Assets"]):
             values = self.tree.item(item)["values"]
             data.append([values[0], values[1]])
 
-        data.append(["Total Non-Current Assets:", self.non_current_assets])
+        data.append(["Total Fixed Assets:", self.fixed_assets])
         data.append(["", ""])
         data.append(["Total Assets:", self.total_assets])
         data.append(["", ""])
@@ -230,13 +228,13 @@ class BalanceSheetGenerator:
 
         data.append(["Total Current Liabilities:", self.current_liabilities])
         data.append(["", ""])
-        data.append(["Non-Current Liabilities", ""])
+        data.append(["Long-term Liabilities", ""])
 
-        for item in self.tree.get_children(self.category_ids["Non-Current Liabilities"]):
+        for item in self.tree.get_children(self.category_ids["Long-term Liabilities"]):
             values = self.tree.item(item)["values"]
             data.append([values[0], values[1]])
 
-        data.append(["Total Non-Current Liabilities:", self.non_current_liabilities])
+        data.append(["Total Long-term Liabilities:", self.long_term_liabilities])
         data.append(["", ""])
         data.append(["Total Liabilities:", self.total_liabilities])
         data.append(["", ""])
